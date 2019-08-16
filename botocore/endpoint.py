@@ -96,6 +96,9 @@ class Endpoint(object):
     def __repr__(self):
         return '%s(%s)' % (self._endpoint_prefix, self.host)
 
+    def close(self):
+        self.http_session.close()
+
     def make_request(self, operation_model, request_dict):
         logger.debug("Making request for %s with params: %s",
                      operation_model, request_dict)

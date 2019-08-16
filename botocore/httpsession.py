@@ -243,6 +243,11 @@ class URLLib3Session(object):
     def _chunked(self, headers):
         return headers.get('Transfer-Encoding', '') == 'chunked'
 
+    def close(self):
+        self._manager.clear()
+        for manager in self._proxy_managers.values():
+            manager.clear()
+
     def send(self, request):
         try:
             proxy_url = self._proxy_config.proxy_url_for(request.url)
